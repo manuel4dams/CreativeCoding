@@ -26,6 +26,7 @@ public class ImagePixelation extends PApplet {
 
         background(135, 135, 135, 255);
         pixelate();
+        saveFrame("ImagePixelation.png");
     }
 
     private void pixelate() {

@@ -30,6 +30,6 @@ public class HelloWorld extends PApplet {
     }
 
     public void mousePressed() {
-        saveFrame("output-" + rnd + ".png");
+        saveFrame("HelloWorld.png");
     }
 }
