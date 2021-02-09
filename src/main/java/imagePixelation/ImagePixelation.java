@@ -1,4 +1,4 @@
-package imagePixelation;
+package imagepixelation;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -7,11 +7,10 @@ import processing.core.PImage;
 public class ImagePixelation extends PApplet {
 
     private PImage image;
-    private float circleSize = 30;
+    private float circleSize = 30f;
 
     public static void main(String... args) {
-
-        PApplet.main("imagePixelation.ImagePixelation");
+        PApplet.main("imagepixelation.ImagePixelation");
     }
 
     public void settings() {
@@ -31,8 +30,8 @@ public class ImagePixelation extends PApplet {
 
     private void pixelate() {
         var overdrawingOffset = 10;
-        for (int x = -overdrawingOffset; x <= width + overdrawingOffset; x += circleSize) {
-            for (int y = -overdrawingOffset; y <= height + overdrawingOffset; y += circleSize) {
+        for (var x = -overdrawingOffset; x <= width + overdrawingOffset; x += circleSize) {
+            for (var y = -overdrawingOffset; y <= height + overdrawingOffset; y += circleSize) {
                 var imageClampedX = max(0, min(x, image.width - 1));
                 var imageClampedY = max(0, min(y, image.height - 1));
                 fill(image.get(imageClampedX, imageClampedY));

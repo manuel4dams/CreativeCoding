@@ -1,4 +1,4 @@
-package spaceInvader;
+package spaceinvader;
 
 import processing.core.PApplet;
 
@@ -7,7 +7,7 @@ public class SpaceInvader extends PApplet {
     public final float GRID_SIZE = 7;
 
     public static void main(String... args) {
-        PApplet.main("spaceInvader.SpaceInvader");
+        PApplet.main("spaceinvader.SpaceInvader");
     }
 
     public void settings() {
@@ -30,8 +30,8 @@ public class SpaceInvader extends PApplet {
         };
 
         noStroke();
-        for (int row = 0; row < GRID_SIZE; row++) {
-            for (int column = 0; column < (GRID_SIZE / 2); column++) {
+        for (var row = 0; row < GRID_SIZE; row++) {
+            for (var column = 0; column < (GRID_SIZE / 2); column++) {
                 fill(colors[(int) random(colors.length - 1)]);
 
                 rect(
