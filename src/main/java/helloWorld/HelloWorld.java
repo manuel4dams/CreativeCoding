@@ -1,12 +1,11 @@
-package helloWorld;
+package helloworld;
 
 import processing.core.PApplet;
 
 public class HelloWorld extends PApplet {
-    private float rnd;
 
     public static void main(String... args) {
-        PApplet.main("helloWorld.HelloWorld");
+        PApplet.main("helloworld.HelloWorld");
     }
 
     public void settings() {
@@ -20,13 +19,13 @@ public class HelloWorld extends PApplet {
     }
 
     public void draw() {
-        rnd = random(10, 40);
+        var random = random(10, 40);
         var color = color(255, random(0, 100), random(0, 100), 200);
 
         ellipseMode(RADIUS);
         fill(color);
         noStroke();
-        ellipse(random(width), random(height), rnd, rnd);
+        ellipse(random(width), random(height), random, random);
     }
 
     public void mousePressed() {
