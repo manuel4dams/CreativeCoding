@@ -1,4 +1,4 @@
-package spaceinvaders;
+package spaceInvaders;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -6,16 +6,16 @@ import processing.core.PImage;
 public class SpaceInvaders extends PApplet {
 
     private static final int INVADER_SIZE = 7;
-    private static final int PIXEL_SIZE = 50;
-    private static final int BORDER_SIZE = 50;
+    private static final int PIXEL_SIZE = 40;
+    private static final int BORDER_SIZE = 40;
 
     public static void main(String... args) {
-        PApplet.main("spaceinvaders.SpaceInvaders");
+        PApplet.main("spaceInvaders.SpaceInvaders");
     }
 
     public void settings() {
         noSmooth();
-        size(650, 650);
+        size(640, 640);
     }
 
     public void setup() {

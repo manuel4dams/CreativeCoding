@@ -9,23 +9,22 @@ public class HelloWorld extends PApplet {
     }
 
     public void settings() {
-        size(900, 600);
+        size(1024, 1024);
     }
 
     public void setup() {
-        surface.setResizable(true);
         background(83, 153, 245);
         frameRate(100);
     }
 
     public void draw() {
-        var random = random(10, 40);
+        var randomSize = random(0, 40);
         var color = color(255, random(0, 100), random(0, 100), 200);
 
         ellipseMode(RADIUS);
         fill(color);
         noStroke();
-        ellipse(random(width), random(height), random, random);
+        ellipse(random(width), random(height), randomSize, randomSize);
     }
 
     public void mousePressed() {

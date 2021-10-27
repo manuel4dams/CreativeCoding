@@ -14,7 +14,7 @@ public class ImagePixelation extends PApplet {
     }
 
     public void settings() {
-        size(900, 900);
+        size(1024, 1024);
         image = loadImage("Monkey.png");
     }
 

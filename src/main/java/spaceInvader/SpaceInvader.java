@@ -1,4 +1,4 @@
-package spaceinvader;
+package spaceInvader;
 
 import processing.core.PApplet;
 
@@ -7,15 +7,14 @@ public class SpaceInvader extends PApplet {
     public final float GRID_SIZE = 7;
 
     public static void main(String... args) {
-        PApplet.main("spaceinvader.SpaceInvader");
+        PApplet.main("spaceInvader.SpaceInvader");
     }
 
     public void settings() {
-        size(600, 600);
+        size(128, 128);
     }
 
     public void setup() {
-        surface.setResizable(true);
         frameRate(1f);
     }
 
