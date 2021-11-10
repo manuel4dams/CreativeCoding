@@ -3,8 +3,6 @@ package quarterCircles;
 import processing.core.PApplet;
 
 public class QuarterCircles extends PApplet {
-    private final int WIDTH = 32;
-    private final int HEIGHT = 32;
 
     public static void main(String... args) {
         PApplet.main("quarterCircles.QuarterCircles");
@@ -20,8 +18,8 @@ public class QuarterCircles extends PApplet {
     }
 
     public void singleDraw() {
-        for (int x = 0; x <= 1024; x = x + WIDTH) {
-            for (int y = 0; y <= 1024; y = y + HEIGHT) {
+        for (int x = 0; x <= width; x = x + width / 32) {
+            for (int y = 0; y <= height; y = y + height / 32) {
                 fillHalfCircles((int) random(0, 5), x, y);
             }
         }
@@ -29,6 +27,9 @@ public class QuarterCircles extends PApplet {
 
     void fillHalfCircles(int random, int x, int y) {
         stroke(255);
+
+        colorMode(RGB, 255, 0, 127);
+
         fill((int) random(0, 256),
                 (int) random(0, 256),
                 (int) random(0, 256));
@@ -37,13 +38,13 @@ public class QuarterCircles extends PApplet {
                 drawHalfCircle(x, y, 0, HALF_PI);
                 break;
             case 1:
-                drawHalfCircle(x + WIDTH, y, HALF_PI, PI);
+                drawHalfCircle(x + width / 32f, y, HALF_PI, PI);
                 break;
             case 2:
-                drawHalfCircle(x + WIDTH, y + HEIGHT, PI, PI + HALF_PI);
+                drawHalfCircle(x + width / 32f, y + height / 32f, PI, PI + HALF_PI);
                 break;
             case 3:
-                drawHalfCircle(x, y + HEIGHT, PI + HALF_PI, PI + PI);
+                drawHalfCircle(x, y + height / 32f, PI + HALF_PI, PI + PI);
                 break;
             case 4:
                 break;
@@ -53,6 +54,6 @@ public class QuarterCircles extends PApplet {
     }
 
     void drawHalfCircle(float x, float y, float start, float stop) {
-        arc(x, y, WIDTH * 2, HEIGHT * 2, start, stop, PIE);
+        arc(x, y, width / 32f * 2, height / 32f * 2, start, stop, PIE);
     }
 }
