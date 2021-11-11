@@ -23,14 +23,12 @@ public class TranslateRotateQuads extends PApplet {
         translate((width - 32 * 12) / 2f, (height - 32 * 24) / 2f);
         for (int x = 0; x < 12; x++) {
             for (int y = 0; y < 24; y++) {
-                pushMatrix();
-                translate(x * 32, y * 32);
-
                 float rotationFactor = sin((float) (0.0001 * millis()));
                 float translationFactor = 0.0001f * millis();
-
+                pushMatrix();
+                translate(x * 32, y * 32);
                 rotate(radians(y * rotationFactor * (random(-20, 20))));
-                translate(x * translationFactor * random(-5, 5), y * translationFactor * random(-5, 5));
+                translate(x * (translationFactor * random(-1, 1)), y * (translationFactor * random(-1, 1)));
                 rect(0, 0, 32, 32);
                 popMatrix();
             }
