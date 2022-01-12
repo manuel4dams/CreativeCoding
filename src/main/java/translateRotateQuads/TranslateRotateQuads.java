@@ -2,8 +2,6 @@ package translateRotateQuads;
 
 import processing.core.PApplet;
 
-import java.util.Random;
-
 public class TranslateRotateQuads extends PApplet {
 
     public static void main(String... args) {

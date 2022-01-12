@@ -20,9 +20,9 @@ public class CirclePacking extends PApplet {
     }
 
     public void setup() {
-//        fillRandomCircleArrayList();
+        fillRandomCircleArrayList();
         image = loadImage("Bridge.jpg");
-        fillImageCircleArrayList();
+//        fillImageCircleArrayList();
     }
 
     private void fillRandomCircleArrayList() {
