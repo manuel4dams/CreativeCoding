@@ -1,4 +1,4 @@
-package theVoid;
+package perlinNoise;
 
 import processing.core.PVector;
 
@@ -16,8 +16,9 @@ public class FixedEmitter {
 
     // emit interval in second
     private static final int EMIT_INTERVAL = 3;
-    private static final int PARTICLE_QUANTITY_MINIMUM = 10;
-    private static final int PARTICLE_QUANTITY_MAXIMUM = 100;
+    private static final int PARTICLE_QUANTITY_MINIMUM = 4;
+    private static final int PARTICLE_QUANTITY_MAXIMUM = 40;
+    public boolean PARTICLES_INVERT_FOLLOW_FLOW_FIELD = false;
     private final int color;
     private static final boolean DRAW_EMITTER = false;
 
@@ -65,7 +66,12 @@ public class FixedEmitter {
         var quantity = (int) theVoid.random(PARTICLE_QUANTITY_MINIMUM, PARTICLE_QUANTITY_MAXIMUM);
 
         for (int i = 0; i < quantity; i++) {
-            particles.add(new Particle(theVoid, getParticlePosition(), color));
+            var particle = new Particle(theVoid, getParticlePosition(), color);
+
+            if(PARTICLES_INVERT_FOLLOW_FLOW_FIELD)
+            particle.INVERT_FOLLOW_FLOW_FIELD = true;
+
+            particles.add(particle);
         }
     }
 

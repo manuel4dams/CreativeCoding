@@ -1,4 +1,4 @@
-package theVoid;
+package perlinNoise;
 
 import agents.MyMath;
 import processing.core.PVector;
@@ -6,14 +6,15 @@ import processing.core.PVector;
 public class Particle {
 
     private static final float MAXIMUM_SPEED = 2f;
-    private static final int MINIMUM_LIFETIME = 10;
-    private static final int MAXIMUM_LIFETIME = 240;
+    private static final int MINIMUM_LIFETIME = 120;
+    private static final int MAXIMUM_LIFETIME = 600;
     private static final float VELOCITY_VARIANCE = 0.1f;
-    private static final float FOLLOW_EMITTER_Value = 0.2f;
+    private static final float FOLLOW_EMITTER_Value = 0.1f;
+    public boolean INVERT_FOLLOW_FLOW_FIELD = false;
     private static final boolean KEEP_ALIVE = false;
     private static final boolean DRAW_PARTICLE_IMAGE = true;
     // only for aging particles
-    private static float ALPHA_MULTIPLIER = 9f;
+    private static float ALPHA_MULTIPLIER = 60f;
 
     private final Void theVoid;
 
@@ -78,6 +79,9 @@ public class Particle {
     }
 
     private PVector followFlowField() {
+        if (INVERT_FOLLOW_FLOW_FIELD)
+            return theVoid.flowField.getVectorForPosition(position).mult(-1f);
+
         return theVoid.flowField.getVectorForPosition(position);
     }
 
@@ -112,7 +116,7 @@ public class Particle {
         float visibilityFactor;
         if (KEEP_ALIVE) {
             visibilityFactor = (float) age;
-            ALPHA_MULTIPLIER  = 0.05f;
+            ALPHA_MULTIPLIER = 0.05f;
         } else {
             visibilityFactor = (float) (initialLifetime - Math.abs(initialLifetime - remainingLifetime * 2)) / initialLifetime;
         }

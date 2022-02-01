@@ -1,4 +1,4 @@
-package theVoid;
+package perlinNoise;
 
 import agents.MyMath;
 import processing.core.PVector;
@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public class Emitter {
     // emit interval in second
     private static final int EMIT_INTERVAL = 3;
-    private static final int PARTICLE_QUANTITY_MINIMUM = 10;
-    private static final int PARTICLE_QUANTITY_MAXIMUM = 100;
+    private static final int PARTICLE_QUANTITY_MINIMUM = 2;
+    private static final int PARTICLE_QUANTITY_MAXIMUM = 20;
     private static final float MAXIMUM_SPEED = 3f;
-    private static final float RADIUS = 20f;
+    private static final float RADIUS = 10f;
     private static final float VELOCITY_VARIANCE = 1f;
     // 0 for no jump
     private static final float JUMP_INTERVAL = 120f;

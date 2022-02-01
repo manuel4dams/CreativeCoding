@@ -1,4 +1,4 @@
-package theVoid;
+package perlinNoise;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -12,6 +12,7 @@ public class FlowField {
 
     private final ArrayList<PVector> flowField = new ArrayList<>();
 
+    // TODO other flowfield types, maybe https://www.youtube.com/watch?v=ZI1dmHv3MeM
     public FlowField(Void theVoid) {
         this.theVoid = theVoid;
     }
@@ -29,18 +30,12 @@ public class FlowField {
         for (var i = 0; i < limit; i++) {
             var x = i % scaledWith;
             var y = i / scaledWith;
-//            var noise = theVoid.noise(
-//                    x * 0.1f,
-//                    y * 0.1f,
-//                    theVoid.frameIndex * 0.005f
-//            );
-//            var angle = PApplet.pow(noise, 1.5f) * PConstants.TWO_PI * 3f;
             var noise = theVoid.noise(
                     x * 0.05f,
                     y * 0.05f,
                     theVoid.frameIndex * 0.005f
             );
-            var angle = noise * PConstants.TWO_PI * 2f;
+            var angle =  PApplet.pow(noise, 1f) * PConstants.TWO_PI * 5f;
             flowField.add(PVector.fromAngle(angle).setMag(0.2f));
 
             if (Void.DEBUG) {
@@ -53,7 +48,7 @@ public class FlowField {
                 theVoid.resetMatrix();
 
                 // Draw noise as square
-                if (true) {
+                if (false) {
                     theVoid.translate(x * Void.SCALE, y * Void.SCALE);
                     theVoid.noStroke();
                     theVoid.fill(angle * 255, 255);
@@ -83,7 +78,7 @@ public class FlowField {
 
         // For fail safety also check if the index is out of bounds.
         if (index >= flowField.size()) {
-            System.out.println("Out of index");
+           System.out.println("Out of index");
             return new PVector();
         }
 
