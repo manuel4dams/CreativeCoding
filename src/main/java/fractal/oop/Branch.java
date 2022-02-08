@@ -1,5 +1,6 @@
-package fractal;
+package fractal.oop;
 
+import fractal.Fractal;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -16,6 +17,7 @@ public class Branch {
         this.branchStart = branchStart;
         this.branchEnd = branchEnd;
     }
+
     // TODO do something with the angle?
     public Branch branchLeft() {
         return new Branch(fractal, branchEnd, PVector.add(branchEnd, getDirection().rotate(-PApplet.PI / 6).mult(0.67f)));

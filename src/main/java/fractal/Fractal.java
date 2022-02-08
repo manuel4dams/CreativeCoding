@@ -1,16 +1,16 @@
 package fractal;
 
 import processing.core.PApplet;
-import processing.core.PVector;
-
-
 
 public class Fractal extends PApplet {
 
-    enum SetFractal{
+    enum FractalType {
         CIRCLES,
         TREE,
-        OOPTREE
+        OOP_TREE,
+        L_SYSTEM_TREE,
+        MANDELBROT,
+        BARNSLEY_FERN
     }
 
     private Fractals fractals;
@@ -26,12 +26,8 @@ public class Fractal extends PApplet {
     }
 
     public void setup() {
-        fractals = new Fractals(this, SetFractal.OOPTREE);
-
-        background(0);
         frameRate(30);
-
-        fractals.init();
+        fractals = new Fractals(this, FractalType.L_SYSTEM_TREE);
     }
 
     public void draw() {

@@ -1,146 +1,72 @@
 package fractal;
 
-import processing.core.PApplet;
-import processing.core.PVector;
+import fractal.circles.Circles;
+import fractal.ltree.LSystem;
+import fractal.oop.OOPTree;
+import fractal.tree.Tree;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+
+import static processing.core.PApplet.radians;
 
 public class Fractals {
 
     private final Fractal fractal;
-    private final Fractal.SetFractal setFractal;
 
-    public ArrayList<Branch> objectOrientedTree = new ArrayList<>();
-    public ArrayList<PVector> leaves = new ArrayList<>();
+    private FractalImplementation fractalImplementation;
 
-    public Fractals(Fractal fractal, Fractal.SetFractal setFractal) {
+    public Fractals(Fractal fractal, Fractal.FractalType fractalType) {
         this.fractal = fractal;
-        this.setFractal = setFractal;
+        init(fractalType);
     }
 
-    public void init() {
-        if (setFractal == Fractal.SetFractal.OOPTREE) {
-            objectOrientedTree.add(new Branch(
-                    fractal,
-                    new PVector(fractal.width / 2f, fractal.height),
-                    new PVector(fractal.width / 2f, fractal.height - 300)
-            ));
-        }
-    }
-
-    public void draw() {
-        switch (setFractal) {
+    private void init(Fractal.FractalType fractalType) {
+        switch (fractalType) {
             case CIRCLES:
-                fractal.translate(fractal.width / 2f, fractal.height / 2f);
-                drawCircles((int) PApplet.map(fractal.mouseX, 0, fractal.height, 1, 8));
+                fractalImplementation = new Circles(fractal);
                 break;
             case TREE:
-                fractal.translate(fractal.width / 2f, fractal.height - 200f);
-                drawTree(100f);
+                fractalImplementation = new Tree(fractal, 100f);
                 break;
-            case OOPTREE:
-                ObjectOrientedTree();
+            case OOP_TREE:
+                fractalImplementation = new OOPTree(fractal, 10);
+                break;
+            case L_SYSTEM_TREE:
+                fractalImplementation = new LSystem(
+                        fractal,
+                        new HashMap<>() {{
+                            put('F', "FF+[+F-F-F]-[-F+F+F]");
+                        }},
+                        "F",
+                        5,
+                        (character, depth) -> {
+                            if (character == 'F') {
+                                var length = -100f * (float) Math.pow(0.5, depth);
+                                fractal.line(0, 0, 0, length);
+                                fractal.translate(0, length);
+                            } else if (character == '+') {
+                                fractal.rotate(radians(25));
+                            } else if (character == '-') {
+                                fractal.rotate(-radians(25));
+                            } else if (character == '[') {
+                                fractal.pushMatrix();
+                            } else if (character == ']') {
+                                fractal.popMatrix();
+                            }
+                        });
+                break;
+            case MANDELBROT:
+                // @see https://www.youtube.com/watch?v=6z7GQewK-Ks
+                break;
+            case BARNSLEY_FERN:
+                // @see https://www.youtube.com/watch?v=JFugGF1URNo
                 break;
             default:
                 break;
         }
     }
 
-    private void drawCircles(int recursionDepth) {
-        fractal.ellipseMode(fractal.CENTER);
-        fractal.noStroke();
-
-        // only draw circles when reaching last recursion level
-        if (recursionDepth <= 0) {
-            fractal.ellipse(0, 0, fractal.width, fractal.height);
-        } else {
-            recursionDepth--;
-            fractal.rotate(0.0005f * fractal.millis());
-            fractal.scale(0.43f);
-
-            for (int x = -1; x < 2; x += 2) {
-                for (int y = -1; y < 2; y += 2) {
-                    fractal.pushMatrix();
-                    fractal.scale(x, y);
-                    fractal.translate(fractal.width / 2f, fractal.height / 2f);
-                    drawCircles(recursionDepth);
-                    fractal.popMatrix();
-                }
-            }
-        }
-    }
-
-    // @see https://www.youtube.com/watch?v=0jjeOYMjmDU
-    private void drawTree(float branchLength) {
-        float newBranchLength = 0.67f * branchLength;
-        float angle = fractal.PI * fractal.frameIndex * 0.005f;
-        int minimumBranchLength = 2;
-
-        fractal.scale(1.2f);
-        fractal.stroke(255);
-        fractal.strokeWeight(0.5f);
-
-        fractal.line(0, 0, 0, -branchLength);
-        fractal.translate(0, -branchLength);
-
-        if (branchLength > minimumBranchLength) {
-
-            fractal.pushMatrix();
-            fractal.rotate(angle);
-            drawTree(newBranchLength);
-            fractal.popMatrix();
-
-            fractal.pushMatrix();
-            fractal.rotate(-angle);
-            drawTree(newBranchLength);
-            fractal.popMatrix();
-        }
-    }
-
-    // @see https://www.youtube.com/watch?v=fcdNSZ9IzJM
-    private void ObjectOrientedTree() {
-        int depth = 10;
-
-        for (var i = objectOrientedTree.size() - 1; i >= 0 && fractal.frameIndex < depth; i--) {
-            if (!objectOrientedTree.get(i).grown) {
-                objectOrientedTree.add(objectOrientedTree.get(i).branchLeft());
-                objectOrientedTree.add(objectOrientedTree.get(i).branchRight());
-                objectOrientedTree.get(i).grown = true;
-            }
-        }
-        if (fractal.frameIndex == depth) {
-            for (Branch branch : objectOrientedTree) {
-                if (!branch.grown) {
-                    leaves.add(branch.getBranchEnd().copy());
-                }
-            }
-        }
-
-        // TODO move leaves or branches???
-        for (Branch branch : objectOrientedTree) {
-            fractal.stroke(139, 69, 19);
-            branch.draw();
-        }
-
-        fractal.noStroke();
-        for (PVector leave : leaves) {
-            fractal.fill(34, 139, 34);
-            fractal.ellipse(leave.x, leave.y, 6, 6);
-        }
-    }
-
-    // @see https://www.youtube.com/watch?v=E1B4UoSQMFw
-    private void LSystemTree() {
-        //TODO
-    }
-
-    // @see https://www.youtube.com/watch?v=6z7GQewK-Ks
-    private void Mandelbrot() {
-        //TODO
-    }
-
-    // @see https://www.youtube.com/watch?v=JFugGF1URNo
-    private void BarnsleyFern() {
-        //TODO
+    public void draw() {
+        fractalImplementation.draw();
     }
 }
