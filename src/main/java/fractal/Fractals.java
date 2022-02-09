@@ -1,12 +1,15 @@
 package fractal;
 
+import fractal.barnsleyfern.BarnsleyFern;
 import fractal.circles.Circles;
+import fractal.mandelbrot.Mandelbrot;
 import fractal.ltree.LSystem;
 import fractal.oop.OOPTree;
 import fractal.tree.Tree;
 
 import java.util.HashMap;
 
+import static processing.core.PApplet.println;
 import static processing.core.PApplet.radians;
 
 public class Fractals {
@@ -35,13 +38,15 @@ public class Fractals {
                 fractalImplementation = new LSystem(
                         fractal,
                         new HashMap<>() {{
-                            put('F', "FF+[+F-F-F]-[-F+F+F]");
+                            put('X', "F+[[X]-X]-F[-FX]+X");
+                            put('F', "FF");
                         }},
-                        "F",
-                        5,
+                        "X",
+                        8,
                         (character, depth) -> {
                             if (character == 'F') {
-                                var length = -100f * (float) Math.pow(0.5, depth);
+                                var length = -250 * (float) Math.pow(0.5, depth);
+                                fractal.stroke(34, 139, 34);
                                 fractal.line(0, 0, 0, length);
                                 fractal.translate(0, length);
                             } else if (character == '+') {
@@ -56,10 +61,10 @@ public class Fractals {
                         });
                 break;
             case MANDELBROT:
-                // @see https://www.youtube.com/watch?v=6z7GQewK-Ks
+                fractalImplementation = new Mandelbrot(fractal);
                 break;
             case BARNSLEY_FERN:
-                // @see https://www.youtube.com/watch?v=JFugGF1URNo
+                fractalImplementation = new BarnsleyFern(fractal);
                 break;
             default:
                 break;

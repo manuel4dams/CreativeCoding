@@ -27,7 +27,7 @@ public class Fractal extends PApplet {
 
     public void setup() {
         frameRate(30);
-        fractals = new Fractals(this, FractalType.L_SYSTEM_TREE);
+        fractals = new Fractals(this, FractalType.MANDELBROT);
     }
 
     public void draw() {

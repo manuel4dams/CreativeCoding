@@ -25,9 +25,10 @@ public class Tree implements FractalImplementation {
 
     public void draw(float currentBranchLength) {
         float newBranchLength = 0.67f * currentBranchLength;
-        float angle = fractal.PI * fractal.frameIndex * 0.005f;
+        float angle = fractal.PI * fractal.frameIndex * 0.001f;
 
         fractal.scale(1.2f);
+        fractal.stroke(139, 69, 19);
         fractal.line(0, 0, 0, -currentBranchLength);
         fractal.translate(0, -currentBranchLength);
 
@@ -41,6 +42,10 @@ public class Tree implements FractalImplementation {
             fractal.rotate(-angle);
             draw(newBranchLength);
             fractal.popMatrix();
+        }else{
+            fractal.noStroke();
+            fractal.fill(34, 139, 34);
+            fractal.ellipse(0,0,2,2);
         }
     }
 }

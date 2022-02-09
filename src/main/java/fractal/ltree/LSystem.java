@@ -2,12 +2,13 @@ package fractal.ltree;
 
 import fractal.Fractal;
 import fractal.FractalImplementation;
+import processing.core.PApplet;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
 
 /**
- * @see <a href="https://www.youtube.com/watch?v=E1B4UoSQMFw">...</a>
+ * @see <a href="https://www.youtube.com/watch?v=E1B4UoSQMFw">CodingTrain</a>
  * @see <a href="https://en.wikipedia.org/wiki/L-system#L-system_structure">L-system</a>
  */
 public class LSystem implements FractalImplementation {
@@ -51,6 +52,7 @@ public class LSystem implements FractalImplementation {
     }
 
     public void draw() {
+        var d = -1;
         fractal.translate(fractal.width / 2f, fractal.height);
         fractal.stroke(255, 100);
 
