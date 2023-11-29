@@ -25,10 +25,15 @@ public class Agents extends PApplet {
         ellipseMode(CENTER);
     }
 
+    int frameIndex;
     public void draw() {
         background(0);
         updateAgents();
         drawAgents();
+
+        if (frameIndex % 2 == 0)
+            saveFrame("TMP/tmp_" + frameIndex + ".png");
+        frameIndex++;
     }
 
     public void mouseClicked() {

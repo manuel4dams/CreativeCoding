@@ -32,12 +32,17 @@ public class ParticleSystem extends PApplet {
         }
     }
 
+    int frameIndex;
     public void draw() {
         background(0);
         updateWind();
         updateParticles();
         drawWindIndicator();
         drawParticles();
+
+        if (frameIndex % 2 == 0)
+            saveFrame("TMP/tmp_" + frameIndex + ".png");
+        frameIndex++;
     }
 
     private void updateWind() {

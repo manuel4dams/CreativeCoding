@@ -9,7 +9,6 @@ import fractal.tree.Tree;
 
 import java.util.HashMap;
 
-import static processing.core.PApplet.println;
 import static processing.core.PApplet.radians;
 
 public class Fractals {

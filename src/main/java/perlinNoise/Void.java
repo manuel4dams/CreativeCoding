@@ -10,8 +10,8 @@ import java.util.List;
 public class Void extends PApplet {
 
     public static final boolean PERLIN_NOISE = false;
-    public static final boolean WARPING = true;
-    public static final boolean FLOW_FIELD = false;
+    public static final boolean WARPING = false;
+    public static final boolean FLOW_FIELD = true;
 
     public static final boolean DEBUG = false;
 
@@ -86,7 +86,13 @@ public class Void extends PApplet {
 //        if (frameIndex % 1 == 0)
 //            clearPixels();
 
+        if (frameIndex % 20 == 0)
+            saveFrame("TMP/tmp_" + frameIndex + ".png");
         frameIndex++;
+    }
+
+    public void mouseClicked() {
+        save("TMP/tmp.png");
     }
 
     // TODO fade out with sobol filter?

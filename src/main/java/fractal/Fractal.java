@@ -27,13 +27,22 @@ public class Fractal extends PApplet {
 
     public void setup() {
         frameRate(30);
-        fractals = new Fractals(this, FractalType.BARNSLEY_FERN);
+        fractals = new Fractals(this, FractalType.CIRCLES);
     }
+
+    int index;
 
     public void draw() {
         background(0);
         fractals.draw();
         resetMatrix();
         frameIndex++;
+
+        saveFrame("TMP/tmp_" + index + ".png");
+        index++;
+    }
+
+    public void mouseClicked() {
+        save("TMP/tmp.png");
     }
 }
