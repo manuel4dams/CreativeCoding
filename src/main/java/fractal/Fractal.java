@@ -4,6 +4,19 @@ import processing.core.PApplet;
 
 public class Fractal extends PApplet {
 
+    enum FractalType {
+        CIRCLES,
+        TREE,
+        OOP_TREE,
+        L_SYSTEM_TREE,
+        MANDELBROT,
+        BARNSLEY_FERN
+    }
+
+    private Fractals fractals;
+
+    public int frameIndex;
+
     public static void main(String... args) {
         PApplet.main("fractal.Fractal");
     }
@@ -13,38 +26,23 @@ public class Fractal extends PApplet {
     }
 
     public void setup() {
-        background(0);
-        ellipseMode(CENTER);
-        noStroke();
+        frameRate(30);
+        fractals = new Fractals(this, FractalType.CIRCLES);
     }
+
+    int index;
 
     public void draw() {
         background(0);
+        fractals.draw();
+        resetMatrix();
+        frameIndex++;
 
-        translate(width / 2f, height / 2f);
-
-        int recursionDepth = (int) map(mouseX, 0, height, 1, 8);
-        drawCircles(recursionDepth);
+        saveFrame("TMP/tmp_" + index + ".png");
+        index++;
     }
 
-    private void drawCircles(int recursionDepth) {
-        // only draw circles when reaching last recursion level
-        if (recursionDepth <= 0) {
-            ellipse(0, 0, width, height);
-        } else {
-            recursionDepth--;
-            rotate(0.0005f * millis());
-            scale(0.43f);
-
-            for (int x = -1; x < 2; x += 2) {
-                for (int y = -1; y < 2; y += 2) {
-                    pushMatrix();
-                    scale(x, y);
-                    translate(width / 2f, height / 2f);
-                    drawCircles(recursionDepth);
-                    popMatrix();
-                }
-            }
-        }
+    public void mouseClicked() {
+        save("TMP/tmp.png");
     }
 }

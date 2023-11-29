@@ -27,6 +27,8 @@ public class ShootThemUp extends PApplet {
         background(0);
     }
 
+    int frameIndex;
+
     public void draw() {
         if (!GAME_OVER) {
             background(0);
@@ -44,6 +46,10 @@ public class ShootThemUp extends PApplet {
             COUNTER = 0;
             GAME_OVER = false;
         }
+
+        if (frameIndex % 10 == 0)
+            saveFrame("TMP/tmp_" + frameIndex + ".png");
+        frameIndex++;
     }
 
     private void AddInvader() {
